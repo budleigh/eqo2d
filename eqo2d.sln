@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "eqo2d", "eqo2d.vcxproj", "{E22D9A72-BBF4-4890-BFE0-04265F103DCD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E22D9A72-BBF4-4890-BFE0-04265F103DCD}.Debug|x64.ActiveCfg = Debug|x64
+		{E22D9A72-BBF4-4890-BFE0-04265F103DCD}.Debug|x64.Build.0 = Debug|x64
+		{E22D9A72-BBF4-4890-BFE0-04265F103DCD}.Debug|x86.ActiveCfg = Debug|Win32
+		{E22D9A72-BBF4-4890-BFE0-04265F103DCD}.Debug|x86.Build.0 = Debug|Win32
+		{E22D9A72-BBF4-4890-BFE0-04265F103DCD}.Release|x64.ActiveCfg = Release|x64
+		{E22D9A72-BBF4-4890-BFE0-04265F103DCD}.Release|x64.Build.0 = Release|x64
+		{E22D9A72-BBF4-4890-BFE0-04265F103DCD}.Release|x86.ActiveCfg = Release|Win32
+		{E22D9A72-BBF4-4890-BFE0-04265F103DCD}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88936173-0574-4BC1-9A4F-C73A77E0A478}
+	EndGlobalSection
+EndGlobal
