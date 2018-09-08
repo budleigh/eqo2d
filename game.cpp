@@ -73,8 +73,7 @@ Entity* Game::getEntityById(const char* id) {
 }
 
 Player* Game::createPlayer() {
-	Player* player = new Player;
-	player->_virtual = true;
+	Player* player = new Player();
 	entitiesById.insert(std::make_pair(player->id, player));
 	entities.push_back(player);
 	return player;
