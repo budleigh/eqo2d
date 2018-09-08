@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Barrywerst",
+    "type": "rock",
+    "coordinates": {
+      "cx": 0,
+      "cy": 0
+    },
+    "radius": 120,
+    "assetFile": "assets/planets/XBarrywerst_.bmp"
+  },
+  {
+    "name": "Cotix",
+    "type": "gas",
+    "coordinates": {
+      "cx": -900,
+      "cy": 0
+    },
+    "radius": 280,
+    "assetFile": "assets/planets/XCotix_.bmp"
+  },
+  {
+    "name": "Sargs",
+    "type": "gas",
+    "coordinates": {
+      "cx": 1500,
+      "cy": -900
+    },
+    "radius": 150,
+    "assetFile": "assets/planets/XSargs_.bmp"
+  },
+  {
+    "name": "Tocont Dyanc",
+    "type": "rock",
+    "coordinates": {
+      "cx": 725,
+      "cy": 900
+    },
+    "radius": 111,
+    "assetFile": "assets/planets/XTocont_Dyanc_.bmp"
+  },
+  {
+    "name": "Tolup",
+    "type": "rock",
+    "coordinates": {
+      "cx": -2100,
+      "cy": -560
+    },
+    "radius": 121,
+    "assetFile": "assets/planets/XTolup_.bmp"
+  }
+]
