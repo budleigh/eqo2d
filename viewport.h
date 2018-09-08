@@ -4,6 +4,7 @@
 
 #include "common.h"
 #include "math.h"
+#include "entity.h"
 
 class Viewport {
 public:
@@ -46,6 +47,10 @@ public:
 
 	// "zoom" functions increase the size of the viewport
 	void scale(float factor, Vector target);
+
+	// basic rendering API
+	bool isEntityInViewport(Entity* entity);
+	Vector computeScreenspaceCoordinates(Vector position, float parallaxCoefficient, bool applyTransform = true);
 
 	// viewport boundary containment, performed each tick
 	void performBoundaryContainment();

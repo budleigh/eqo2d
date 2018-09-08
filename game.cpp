@@ -36,7 +36,7 @@ void Game::generateStarMap() {
 	long starBoundaryUp = WORLD_BOUNDARY_UPY - 1000;
 	long starBoundaryDown = WORLD_BOUNDARY_DOWNY + 1000;
 
-	float starDistribution = .0008;
+	float starDistribution = .0001;
 
 	for (int x = 0; x < (WORLD_WIDTH * WORLD_HEIGHT) * starDistribution; x++) {
 		Vector star;
@@ -46,19 +46,28 @@ void Game::generateStarMap() {
 	}
 }
 
-void Game::update(std::vector<SDL_Event>& eventList) {
+bool Game::update(std::vector<SDL_Event>& eventList) {
 	// viewport update reacts to input events
 	viewport.update(eventList);
 
 	// update all game entities
 	for (auto& entity : entities) {
 		entity->update(eventList, *this);
+		entity->screenPosition = viewport.computeScreenspaceCoordinates(entity->position, 1.0);
 	}
+
+	for (auto& event : eventList) {
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 void Game::render() {
 	// signal to start filling backbuffer
-	renderer->beginRender(viewport.topLeft, viewport.width, viewport.height, viewport.transform, viewport.scaleFactor);
+	renderer->beginRender();
 
 	// order here matters!
 	renderer->drawStars(stars);
@@ -81,7 +90,7 @@ Player* Game::createPlayer() {
 
 Ship* Game::createShip() {
 	Ship* ship = new Ship();
-	ship->assetFile = "assets/ships/ship.bmp";
+	ship->assetFile = "assets/ships/shippy.bmp";
 	ship->assetFileWidth = 2048;
 	ship->assetFileHeight = 2742;
 	entitiesById.insert(std::make_pair(ship->id, ship));

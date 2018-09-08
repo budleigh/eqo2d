@@ -1,23 +1,12 @@
 #include "common.h"
 #include "render.h"
 
-void Renderer::beginRender(Vector topLeft, int width, int height, TransformMatrix transform, double scaleFactor) {
+void Renderer::beginRender() {
 	// start drawing to a hidden backbuffer - this
 	// backbuffer will be presented when we call
 	// SDL_RenderPresent
 	SDL_SetRenderDrawColor(SDLRenderer, 0, 0, 0, 0);
 	SDL_RenderClear(SDLRenderer);
-
-	// width and height may differ from the screenspace
-	// this represents 'zoom' and must be accoutned for
-	// as a scaling factor for both entity sizes and 
-	// screenspace coordinates
-	currentTopLeft.x = topLeft.x;
-	currentTopLeft.y = topLeft.y;
-	currentWidth = width;
-	currentHeight = height;
-	currentTransform = transform;
-	currentScaleFactor = scaleFactor;
 }
 
 void Renderer::endRender() {
@@ -28,7 +17,7 @@ void Renderer::drawStars(std::vector<Vector>& stars) {
 	SDL_SetRenderDrawColor(SDLRenderer, 255, 255, 255, 255);
 	for (auto& star : stars) {
 		// stars are not transformed
-		Vector viewportPosition = computeScreenspaceCoordinates(star, 0.01, false);
+		Vector viewportPosition = viewport->computeScreenspaceCoordinates(star, 0.01, false);
 		SDL_RenderDrawPoint(SDLRenderer, viewportPosition.x, viewportPosition.y);
 	}
 }
@@ -53,11 +42,10 @@ void Renderer::drawEntity(Entity* entity) {
 			// the view coordinates are potentially offset by the
 			// moving/scaling viewport, so use transformed coords
 			SDL_Rect planetBox;
-			Vector screenPosition = computeScreenspaceCoordinates(entity->position, 1.0);
-			planetBox.x = screenPosition.x;
-			planetBox.y = screenPosition.y;
-			planetBox.w = entity->width * (1.0 / currentScaleFactor);
-			planetBox.h = entity->height * (1.0 / currentScaleFactor);
+			planetBox.x = entity->screenPosition.x;
+			planetBox.y = entity->screenPosition.y;
+			planetBox.w = entity->width * (1.0 / viewport->scaleFactor);
+			planetBox.h = entity->height * (1.0 / viewport->scaleFactor);
 			SDL_RenderCopy(SDLRenderer, texture, &source, &planetBox);
 		}
 	}
@@ -81,29 +69,6 @@ SDL_Texture* Renderer::textureFromBMP(std::string fileName) {
 	cacheTexture(fileName, texture);
 	SDL_FreeSurface(bmp);
 	return texture;
-}
-
-bool Renderer::isEntityInViewport(Entity* entity) {
-	// todo 2d frustum cull - does SDL do this already?
-	return true;
-}
-
-Vector Renderer::computeScreenspaceCoordinates(Vector gamePosition, float parallaxCoefficient, bool applyTransform) {
-	// converts the entity's gameworld coordinates to the constrained screensurface (1024x768 0,0 topleft)
-	Vector result;
-
-	// gamespace coordinates are offset by the viewport coordinates w/zoom transform
-	result.x = gamePosition.x - currentTopLeft.x * parallaxCoefficient;
-	result.y = gamePosition.y - currentTopLeft.y * parallaxCoefficient;
-
-	// transform since the viewport might be larger than 1024x768
-	// transform here always describes how to get from the viewport coordinates
-	// to the screenspace 1024x768 coordinates and is updated each tick
-	if (applyTransform) {
-		result = result.applyTransform(currentTransform);
-	}
-
-	return result;
 }
 
 void Renderer::cacheTexture(std::string fileName, SDL_Texture* texture) {

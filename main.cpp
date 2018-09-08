@@ -24,7 +24,7 @@ void launchDebugTerminal(void) {
 
 SDL_Window* createSDLWindow(void) {
 	SDL_Window* window = SDL_CreateWindow(
-		"eqo", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN
+		"eqo", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_FULLSCREEN
 	);
 
 	if (window == nullptr) {
@@ -81,7 +81,7 @@ void mainLoop(SDL_Renderer* SDLRenderer) {
 		}
 
 		if (running) {
-			game->update(eventList);
+			running = game->update(eventList);
 			game->render();
 		}
 	}

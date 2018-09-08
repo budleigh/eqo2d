@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include <SDL.h>
 
 #include "util.h"
@@ -26,6 +28,8 @@ public:
 
 	// generic existential properties
 	Vector position;
+	// screenPosition is the transformed position relative to the viewport
+	Vector screenPosition;
 	int width;
 	int height;
 
@@ -37,4 +41,7 @@ public:
 	// entity API to interogate things like location and other entity
 	// state.
 	virtual void update(std::vector<SDL_Event> eventList, Game& gameStateAPI) {};
+
+	// generic interaction helpers
+	bool mouseOver();
 };

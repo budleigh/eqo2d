@@ -37,11 +37,11 @@ void Viewport::update(std::vector<SDL_Event>& eventList) {
 	if (mouseMoving) {
 		handleMouseMoving(relativeX, relativeY);
 	}
-	else if (zooming) {
-		handleZoom(relativeY);
-	}
 	else {
 		handleKeyboardMoving();
+	}
+	if (zooming) {
+		handleZoom(relativeY);
 	}
 
 	// keep viewport boundaries enforced
@@ -162,6 +162,8 @@ void Viewport::scale(float factor, Vector target) {
 	height = height * factor;
 	width = width * factor;
 	transform = transform * (1.0 / factor);
+
+	topLeft = topLeft * factor;
 }
 
 Vector Viewport::bottomLeft() {
@@ -248,4 +250,26 @@ void Viewport::performBoundaryContainment() {
 	if (isTooBig()) {
 		scale(static_cast<double> (WORLD_SIZE) / size(), Vector(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
 	}
+}
+
+Vector Viewport::computeScreenspaceCoordinates(Vector gamePosition, float parallaxCoefficient, bool applyTransform) {
+	// converts the entity's gameworld coordinates to the constrained screensurface (1024x768 0,0 topleft)
+	Vector result;
+
+	// gamespace coordinates are offset by the viewport coordinates w/zoom transform
+	result.x = gamePosition.x - topLeft.x * parallaxCoefficient;
+	result.y = gamePosition.y - topLeft.y * parallaxCoefficient;
+
+	// transform since the viewport might be larger than 1024x768
+	// transform here always describes how to get from the viewport coordinates
+	// to the screenspace 1024x768 coordinates and is updated each tick
+	if (applyTransform) {
+		result = result.applyTransform(transform);
+	}
+
+	return result;
+}
+
+bool Viewport::isEntityInViewport(Entity* entity) {
+	return true;
 }

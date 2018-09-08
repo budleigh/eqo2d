@@ -48,6 +48,9 @@
     <ClCompile Include="viewport.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
+    <ClCompile Include="entity.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math.h">

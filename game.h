@@ -21,7 +21,7 @@ public:
 		player1 = createPlayer();
 		initialize();
 
-		renderer = new Renderer(sdlRenderer);
+		renderer = new Renderer(sdlRenderer, &viewport);
 	}
 
 	~Game() {
@@ -30,7 +30,7 @@ public:
 	}
 	// lifecycle and mainloop
 	void initialize();
-	void update(std::vector<SDL_Event>& eventList);
+	bool update(std::vector<SDL_Event>& eventList);
 	void render();
 
 	// game state API

@@ -1,8 +1,8 @@
 #pragma once
 
 // general settings
-static const int SCREEN_WIDTH = 1024;
-static const int SCREEN_HEIGHT = 768;
+static const int SCREEN_WIDTH = 1920;
+static const int SCREEN_HEIGHT = 1080;
 static const int SCREEN_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT;
 
 // viewport aspect ratio matches the screen
